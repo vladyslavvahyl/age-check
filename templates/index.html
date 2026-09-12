@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <title>Перевірка віку</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; margin-top: 100px; background-color: #f4f4f9; }
+        .card { background: white; padding: 30px; border-radius: 10px; display: inline-block; box-shadow: 0px 0px 10px rgba(0,0,0,0.1); width: 400px; }
+        input { padding: 10px; font-size: 16px; width: 80%; margin-bottom: 10px; border: 1px solid #ccc; border-radius: 5px; }
+        button { padding: 10px 20px; font-size: 16px; background-color: #007BFF; color: white; border: none; border-radius: 5px; cursor: pointer; }
+        button:hover { background-color: #0056b3; }
+
+        /* Стилі для повідомлень */
+        .result { margin-top: 20px; font-weight: bold; font-size: 16px; padding: 10px; border-radius: 5px; }
+        .success { background-color: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
+        .warning { background-color: #fff3cd; color: #856404; border: 1px solid #ffeeba; }
+        .danger { background-color: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
+        .error { background-color: #e2e3e5; color: #383d41; }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <h2>Перевірка віку для доступу</h2>
+
+        <!-- Якщо вік менше 13, можна навіть приховувати форму, щоб користувач не міг далі нічого ввести -->
+        {% if status == 'danger' %}
+            <div class="result danger">{{ result }}</div>
+            <p style="color: red; margin-top: 15px;">Сесію закрито.</p>
+        {% else %}
+            <form method="POST">
+                <input type="number" name="age" placeholder="Введіть ваш вік" required>
+                <br>
+                <button type="submit">Перевірити</button>
+            </form>
+            {% if result %}
+                <div class="result {{ status }}">{{ result }}</div>
+            {% endif %}
+        {% endif %}
+    </div>
+</body>
+</html>
